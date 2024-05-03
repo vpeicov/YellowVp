@@ -1,0 +1,25 @@
+/* Home.css */
+
+.site-layout-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Занимает всю высоту контейнера Layout */
+    background-color: white; /* Цвет фона */
+}
+
+.site-layout-content img {
+    margin-top: 300px; /* Отступ сверху 20px */
+    margin-bottom: 10px; /* Отрицательный отступ снизу 20px */
+    max-width: 100%; /* Ширина изображений не превышает 50% ширины контейнера */
+    height: auto; /* Автоматическая высота изображений */
+    width: 400px;
+}
+
+.site-layout-content img:first-child {
+    margin-right: 150px; /* Отступ справа для первого изображения */
+}
+
+.site-layout-content img:last-child {
+    margin-left: 150px; /* Отступ слева для второго изображения */
+}

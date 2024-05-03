@@ -1,0 +1,40 @@
+.categories {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+  }
+  
+  .category {
+    padding: 15px 70px;
+    font-size: 30px;
+    color:black;
+    margin: 45px 40px;
+    cursor: pointer;
+    border: 5px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .category.active {
+    border-color: blue;
+    color: blue;
+  }
+  
+  .product-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* создает 4 колонки с одинаковой шириной */
+    gap: 150px; /* добавляет промежуток между элементами */
+  }
+  
+  .product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  .product img {
+    width: 100%; /* Ширина изображения адаптируется к размеру контейнера */
+    height: auto; /* Высота изменяется пропорционально, сохраняя аспектное соотношение */
+    max-height: 300px; /* Максимальная высота изображения */
+    
+  }
+  

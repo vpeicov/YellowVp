@@ -1,0 +1,12 @@
+
+  
+  .nashi-content {
+    margin-top: 200px
+  }
+  
+  .product-list-container {
+    color: black; /* устанавливаем красный цвет текста */
+    margin-top: 80px; /* сдвигаем контент вниз на 80 пикселей */
+    font-size: 25px;
+  }
+  
