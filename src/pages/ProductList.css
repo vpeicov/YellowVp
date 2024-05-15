@@ -24,6 +24,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* создает 4 колонки с одинаковой шириной */
     gap: 150px; /* добавляет промежуток между элементами */
+	cursor: pointer;
   }
   
   .product {
@@ -36,5 +37,8 @@
     height: auto; /* Высота изменяется пропорционально, сохраняя аспектное соотношение */
     max-height: 300px; /* Максимальная высота изображения */
     
+  }
+  .product-wrapper {
+	margin-top: 80px;
   }
   

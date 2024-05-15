@@ -8,7 +8,7 @@ const { Header } = Layout;
 const AppBar: React.FC = () => {
     return (
         <Header className="app-bar">
-            <div className="logo" />
+            <div className="logo">LOGO</div>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/nashi'>Nashi</NavLink>
         </Header>

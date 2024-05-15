@@ -11,7 +11,7 @@ const { Content } = Layout;
 const Home: React.FC = () => {
     return (
         <Layout>
-            <AppBar /> {}
+            <AppBar />
             <Content className="site-layout-content">
                 <Link to="/nashi">
                     <div className="image-wrapper">
