@@ -42,27 +42,28 @@ import cvv from '../assets/cvv.png';
 import ksiu from '../assets/ksiu.png';
 
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  description: string;
-}
+export interface Product {
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    image: string;
+    description: string;
+  }
+  
+  const ProductList = () => {
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
+    const handleProductClick = (product: Product) => {
+        setSelectedProduct(product);
+    };
+  
+    const closeModal = () => {
+        setSelectedProduct(null);
+    };
 
-const ProductList = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-  const handleProductClick = (product: Product) => {
-    setSelectedProduct(product);
-  };
-
-  const closeModal = () => {
-    setSelectedProduct(null);
-  };
-
-  const products: Product[] = [
+    const products: Product[] = [
     { id: 6, name: 'Sampoo Classic', price: 450, category: 'Hair', image: SampooClassicImage, description: 'Для всех типов волос' },
     { id: 7, name: 'Conditioner', price: 450, category: 'Hair', image: conditioner, description: 'для всех' },
     { id: 8, name: 'Product 3', price: 500, category: 'Hair', image: instant, description: 'Укрепляющий' },
@@ -108,22 +109,43 @@ const ProductList = () => {
     { id: 45, name: 'Product 4', price: 480, category: 'BOX SETS', image: ksiu, description: 'Восстанавливающий' },
   ];
 
-  return (
-    <div>
-      <h2>Product List</h2>
-      <div className="product-container">
-        {products.map((product) => (
-          <div key={product.id} className="product" onClick={() => handleProductClick(product)}>
-            <img src={product.image} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>Price: {product.price} mdl</p>
-          </div>
-        ))}
-      </div>
-      {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
-    </div>
-  );
+  const categories = Array.from(new Set(products.map(product => product.category)));
+
+   return (
+       <div>
+           <h2>Product List</h2>
+           <div className="categories">
+               <div
+                   className={`category ${selectedCategory === null ? 'active' : ''}`}
+                   onClick={() => setSelectedCategory(null)}
+               >
+                   All
+               </div>
+               {categories.map(category => (
+                   <div
+                       key={category}
+                       className={`category ${selectedCategory === category ? 'active' : ''}`}
+                       onClick={() => setSelectedCategory(category)}
+                   >
+                       {category}
+                   </div>
+               ))}
+           </div>
+           <div className="product-container">
+               {products
+                   .filter(product => selectedCategory === null || product.category === selectedCategory)
+                   .map(product => (
+                       <div key={product.id} className="product" onClick={() => handleProductClick(product)}>
+                           <img src={product.image} alt={product.name} />
+                           <h3>{product.name}</h3>
+                           <p>{product.description}</p>
+                           <p>Price: {product.price} mdl</p>
+                       </div>
+                   ))}
+           </div>
+           {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
+       </div>
+   );
 };
 
 export default ProductList;

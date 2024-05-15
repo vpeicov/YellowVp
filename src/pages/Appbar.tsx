@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import "./Appbar.css";
 import { NavLink } from 'react-router-dom';
+import "./Appbar.css";
 
 const { Header } = Layout;
 
@@ -9,7 +9,8 @@ const AppBar: React.FC = () => {
     return (
         <Header className="app-bar">
             <div className="logo" />
-            <NavLink to='/'>Cart</NavLink>
+            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/nashi'>Nashi</NavLink>
         </Header>
     );
 }

@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
 import './Modal.css';
+import { Product } from './ProductList';
 
-interface Product {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-}
-
-interface ModalProps {
-    product: Product;
-    onClose: () => void;
-}
-
-// Объект с данными для каждого продукта
 const productData: Record<number, { name: string, additionalInfo: string, volumeOptions: Record<number, number> }> = {
     6: {
-        name: 'Sampoo Classic',
+        name: 'Shampoo Classic',
         additionalInfo: 'Дополнительная информация для продукта 1',
         volumeOptions: {
             150: 450,
@@ -32,16 +20,24 @@ const productData: Record<number, { name: string, additionalInfo: string, volume
         }
     },
     // Добавьте другие продукты здесь...
+    // Ваш список продуктов или информацию, которую вы хотели бы здесь видеть
 };
 
+interface ModalProps {
+    product: Product;
+    onClose: () => void;
+}
+
 const Modal: React.FC<ModalProps> = ({ product, onClose }) => {
-    const { name, description, image } = product;
-    const { additionalInfo, volumeOptions } = productData[product.id] || {};
+    const { id, name, description, image, price, category } = product;
+    const { additionalInfo, volumeOptions } = productData[id] || { additionalInfo: '', volumeOptions: {} };
     const [selectedVolume, setSelectedVolume] = useState(Object.keys(volumeOptions)[0]);
-    const price = volumeOptions[parseInt(selectedVolume)];
+    const [productPrice, setProductPrice] = useState<number>(price); 
 
     const handleVolumeChange = (volume: string) => {
         setSelectedVolume(volume);
+        const selectedPrice = volumeOptions[parseInt(volume)];
+        setProductPrice(selectedPrice);
     };
 
     return (
@@ -62,8 +58,7 @@ const Modal: React.FC<ModalProps> = ({ product, onClose }) => {
                             </select>
                         </div>
                         <p>Additional Info: {additionalInfo}</p>
-                        <p>Price: {price} mdl</p>
-                        <button>Add to cart</button>
+                        <p>Price: {productPrice} mdl</p>
                     </div>
                 </div>
             </div>
