@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Modal.css';
-import { Product } from './ProductList';
+import { IProduct } from './ProductList';
 
 const productData: Record<number, { name: string, additionalInfo: string, volumeOptions: Record<number, number> }> = {
     6: {
@@ -19,16 +19,15 @@ const productData: Record<number, { name: string, additionalInfo: string, volume
             400: 800
         }
     },
-    // Добавьте другие продукты здесь...
-    // Ваш список продуктов или информацию, которую вы хотели бы здесь видеть
 };
 
 interface ModalProps {
-    product: Product;
+	addToCart: (product: IProduct) => void;
+    product: IProduct;
     onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ product, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ product, onClose, addToCart }) => {
     const { id, name, description, image, price, category } = product;
     const { additionalInfo, volumeOptions } = productData[id] || { additionalInfo: '', volumeOptions: {} };
     const [selectedVolume, setSelectedVolume] = useState(Object.keys(volumeOptions)[0]);
@@ -38,6 +37,11 @@ const Modal: React.FC<ModalProps> = ({ product, onClose }) => {
         setSelectedVolume(volume);
         const selectedPrice = volumeOptions[parseInt(volume)];
         setProductPrice(selectedPrice);
+    };
+
+	const handleAddToCart = () => {
+        addToCart(product); 
+        onClose(); 
     };
 
     return (
@@ -59,6 +63,13 @@ const Modal: React.FC<ModalProps> = ({ product, onClose }) => {
                         </div>
                         <p>Additional Info: {additionalInfo}</p>
                         <p>Price: {productPrice} mdl</p>
+						<p>Category: {category}</p>
+						<button 
+							className='cart_btn'
+							onClick={handleAddToCart}
+						>
+							Add to cart
+						</button>
                     </div>
                 </div>
             </div>

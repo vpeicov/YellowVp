@@ -40,9 +40,10 @@ import geler from '../assets/geler.png';
 import saw from '../assets/saw.png';
 import cvv from '../assets/cvv.png';
 import ksiu from '../assets/ksiu.png';
+import Cart from './Cart';
+import { Button } from 'antd';
 
-
-export interface Product {
+export interface IProduct {
     id: number;
     name: string;
     price: number;
@@ -52,10 +53,16 @@ export interface Product {
   }
   
   const ProductList = () => {
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+	const [cartItems, setCartItems] = useState<IProduct[]>([]);
+	const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
+
+    const addToCart = (product: IProduct) => {
+        setCartItems(prevItems => [...prevItems, product]); 
+    };
   
-    const handleProductClick = (product: Product) => {
+    const handleProductClick = (product: IProduct) => {
         setSelectedProduct(product);
     };
   
@@ -63,7 +70,11 @@ export interface Product {
         setSelectedProduct(null);
     };
 
-    const products: Product[] = [
+	const toggleCartVisibility = () => {
+        setIsCartVisible(prevState => !prevState); 
+    };
+
+    const products: IProduct[] = [
     { id: 6, name: 'Sampoo Classic', price: 450, category: 'Hair', image: SampooClassicImage, description: 'Для всех типов волос' },
     { id: 7, name: 'Conditioner', price: 450, category: 'Hair', image: conditioner, description: 'для всех' },
     { id: 8, name: 'Product 3', price: 500, category: 'Hair', image: instant, description: 'Укрепляющий' },
@@ -112,7 +123,11 @@ export interface Product {
   const categories = Array.from(new Set(products.map(product => product.category)));
 
    return (
-       <div>
+       <div className='product-wrapper'>
+			<Button onClick={toggleCartVisibility} style={{
+				marginBottom: 15
+			}}>Корзина</Button>
+			{isCartVisible && <Cart cartItems={cartItems}/>}
            <h2>Product List</h2>
            <div className="categories">
                <div
@@ -143,7 +158,7 @@ export interface Product {
                        </div>
                    ))}
            </div>
-           {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
+           {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} addToCart={addToCart} />}
        </div>
    );
 };
